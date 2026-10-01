@@ -11,18 +11,20 @@ df = pd.DataFrame(data)
 df['Exited'] = df['Exited'].astype(bool)
 df['HasCrCard'] = df['HasCrCard'].astype(bool)
 
-# print(df.duplicated())
+print(df.duplicated())
 # No duplicated data
 
-# print(df.isna().sum()) 
+print(df.isna().sum()) 
 # No null data
 
-#sns.boxplot(data= df, x=df['CreditScore'])
+sns.boxplot(data= df, x=df['CreditScore'])
 #No outliers on the credit score line
-#sns.boxplot(data=df, x= df['Balance'])
-#plt.show()
+sns.boxplot(data=df, x= df['Balance'])
+plt.show()
 
-map = {
+gender_map = {
     'Male': 0,
     'Female': 1
 }
+
+df = df.replace({'Gender': gender_map})
