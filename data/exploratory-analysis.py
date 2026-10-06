@@ -26,10 +26,24 @@ churn_df['SalaryGroup'] = pd.cut(
     include_lowest= True
     )
 
+churn_df['CreditScoreGroup'] = pd.cut(
+    churn_df['CreditScore'], 
+    bins= credit_bins,
+    labels= credit_labels,
+    include_lowest= True
+    )
+
 salary_grouped = (
     churn_df.groupby('SalaryGroup', observed=False)
     .agg(Count=('CustomerId', 'count'),
             AvgCreditScore=('CreditScore', 'mean'))
+    .reset_index()
+)
+
+credit_grouped = (
+    churn_df.groupby('CreditScoreGroup', observed=False)
+    .agg(Count=('CustomerId', 'count'),
+            AvgSalary=('EstimatedSalary', 'mean'))
     .reset_index()
 )
 
@@ -39,6 +53,10 @@ salary_group_fig = px.bar(
     y= 'Count'
 )
 
-salary = sns.boxplot(
-    
+credit_group_fig = px.bar(
+    credit_grouped,
+    x= 'CreditScoreGroup',
+    y= 'Count'
 )
+
+credit_group_fig.show()
