@@ -6,8 +6,6 @@ import seaborn as sns
 import numpy as np
 import plotly.express as px
 
-import streamlit as st
-
 churn_df = df[df['Exited'] == True].copy()
 
 salary_labels = ['0-10k', '10k-20k', '20k-30k', '30k-40k', '40k-50k',
