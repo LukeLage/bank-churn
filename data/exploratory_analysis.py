@@ -1,4 +1,4 @@
-from wrangling import df
+from data.wrangling import df
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -56,5 +56,3 @@ credit_group_fig = px.bar(
     x= 'CreditScoreGroup',
     y= 'Count'
 )
-
-credit_group_fig.show()
