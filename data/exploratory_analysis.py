@@ -56,3 +56,13 @@ credit_group_fig = px.bar(
     x= 'CreditScoreGroup',
     y= 'Count'
 )
+
+mean_age_churn = churn_df['Age'].mean()
+mean_age_churn_salary_churn = churn_df['EstimatedSalary'].mean()
+
+salary_mode_churn = churn_df['EstimatedSalary'].mode()[0]
+credit_mode_churn = churn_df['CreditScore'].mode()[0]
+
+product_mode_churn = churn_df['NumOfProducts'].mode()[0]
+
+churn_number = churn_df.shape[0]
