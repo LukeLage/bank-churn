@@ -45,6 +45,20 @@ credit_grouped = (
     .reset_index()
 )
 
+product_grouped = (
+    churn_df.groupby('NumOfProducts', observed=False)
+    .agg(Count=('CustomerId', 'count'),
+            AvgSalary=('EstimatedSalary', 'mean'))
+    .reset_index()
+)
+
+geography_grouped = (
+    churn_df.groupby('Geography', observed=False)
+    .agg(Count=('CustomerId', 'count'),
+            AvgSalary=('EstimatedSalary', 'mean'))
+    .reset_index()
+)
+
 salary_group_fig = px.bar(
     salary_grouped, 
     x= 'SalaryGroup',
@@ -54,6 +68,12 @@ salary_group_fig = px.bar(
 credit_group_fig = px.bar(
     credit_grouped,
     x= 'CreditScoreGroup',
+    y= 'Count'
+)
+
+product_group_fig = px.bar(
+    product_grouped,
+    x= 'NumOfProducts',
     y= 'Count'
 )
 

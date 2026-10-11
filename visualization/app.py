@@ -1,7 +1,10 @@
 import sys
+import os
+
+# Adicionar o diretório raiz do projeto ao path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
-print(sys.path)
 from data.exploratory_analysis import *
 
 st.markdown(
@@ -16,7 +19,7 @@ with st.sidebar:
     with st.container():
         visualization = st.radio(
             'Select a visualization',
-            ('Initial graphics', 'Insights'),
+            ('Initial graphics', 'Global Map', 'Insights'),
             index= None
         )
         
@@ -24,14 +27,14 @@ with st.sidebar:
         with st.container():
             initial_graphics = st.radio(
             'Select a graphic to display in the initial graphics section:',
-            ['Salary based churn', 'Credit score based churn']
+            ['Salary based churn', 'Credit score based churn', 'Products based churn']
         )
             
     with st.container():
         st.write('Analyst: Luke Malaquias Lage')
         st.write('Email: lukelage646@gmail.com')
         st.write('LinkedIn: https://www.linkedin.com/in/luke-malaquias-lage-ciencia-de-dados/')
-    
+
 
 with st.container():
     st.markdown(
@@ -71,6 +74,19 @@ with st.container():
             )
             st.plotly_chart(credit_group_fig, use_container_width=True)
             st.write('The bar chart above show the number of customers who have churned based on their credit score, grouped by the hundreds. The chart shows that customers with credit scores between 600 and 700 have the highest churn rate with 753 customers in this group who churned, and the lowest group is, curiously, the 300 to 400 group with 19 customers who churned. That shows that customers with middle to high credit scores are more likely to churned. This is a interesting insight, as it is contrary to what one would expect, but we can understand that we need to give more support to customers who are trying to improve their credit score.')
+        elif initial_graphics == 'Products based churn':
+            st.markdown(
+                "<h3 style='text-align: center;'>Churn based on number of products</h3>",
+                unsafe_allow_html=True
+            )
+            st.plotly_chart(product_group_fig, use_container_width=True)
+            st.write('Not surprisingly, the bar chart show a massive discrepancy between the number of customers who have churned based on the number of products they have with the bank, with the majority being customers with only one product, the number exceeds 1400, while, combined, the other groups do not reach 650 customers.')
+    elif visualization == 'Global Map':
+        st.markdown(
+            "<h3 style='text-align: center;'>Global Map</h3>",
+            unsafe_allow_html=True
+        )
+
     elif visualization == 'Insights':
         st.markdown(
             "<h3 style='text-align: center;'>Insights</h3>",
@@ -78,7 +94,7 @@ with st.container():
         ) 
         with st.container():
             st.write(
-                f'The mean age of customers who have churned is {mean_age_churn:.0f} years old and the group with the most churned customers is the one with 600-700 credit score and the mode of the credit score is {credit_mode_churn}, so, we can understand that customers who are more likely to churn are those who are trying to improve their credit score, preparing themselves for a big financial decision and/or retirement.',
+                f'The mean age of customers who have churned is {mean_age_churn:.0f} years old and the group with the most churned customers is the one with 600-700 credit score and the mode of the credit score is {credit_mode_churn}, so, we can understand that customers who are more likely to churn are those who are trying to improve their credit score, trying to secure a loan ou a better credit card with more benefits or a greater limit, preparing themselves for a big financial decision and/or retirement.',
             )
             st.write(
                 'With 20.47% of the customers churned, we can see that the bank is losing a significant number of customers,'
